@@ -1,13 +1,527 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-		<!-- Your code goes here-->
+<meta charset="UTF-8">
+<title>SOLVE</title>
+<script type="text/javascript" src= "js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="s/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="s/jquery.min.js"></script>
+<link rel="stylesheet" href="css/cbr.css" />
+<script type="text/javascript" src="js/cbr.js"></script>
+<link href="css/mathstyle.css" rel="stylesheet" /><!--Stylesheet to display Math functions -->
+<script type="text/javascript" src= "js/ej.web.all.min.js"></script>
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
+<script>
+var simsubscreennum=0;
+var temp=0;
+var graphSet;
+var p=Math.floor(Math.random()*(6));
+var dataset1 = new Array();
+var dataset2 = new Array();
+var trace;
+var traceLine1,traceLine2;
+var soilType;
+var cbrDataset = [[7.04,6.05],
+				[5.03,8.63],
+				[5.70,5.48],
+				[6.81,5.90],
+				[7.60,7.00],
+				[8.60,7.14],
+				[9.00,7.14]];
+
+var cbrDataset2 = [[4.93,6.35],
+				[4.51,5.91],
+				[3.99,5.75],
+				[4.77,6.19],
+				[5.32,7.35],
+				[6.02,7.50],
+				[6.30,7.50]];
+
+var dataset10=[[0,0],
+			[0.5,20.0],
+			[1.0,29.2],
+			[1.5,34.4],
+			[2.0,38.6],
+			[2.5,42.6],
+			[3.0,45.6],
+			[4.0,50.6],
+			[5.0,54.8],
+			[7.5,61.8],
+			[10.0,66.0],
+			[12.5,70.2]];
+
+
+var dataset20=	[[0,0],
+				[0.5,18.0],
+				[1.0,27.1],
+				[1.5,32.2],
+				[2.0,35.6],
+				[2.5,39.1],
+				[3.0,43.0],
+				[4.0,47.3],
+				[5.0,51.2],
+				[7.5,57.4],
+				[10.0,63.0],
+				[12.5,69.0]]
+
+var dataset30 = [[0,0],
+				[0.5,15.0],
+				[1.0,21.0],
+				[1.5,26.3],
+				[2.0,29.9],
+				[2.5,34.6],
+				[3.0,41.0],
+				[4.0,46.1],
+				[5.0,49.8],
+				[7.5,53.4],
+				[10.0,59.6],
+				[12.5,67]]
+
+var dataset40 = [[0,0],
+				[0.5,14.0],
+				[1.0,26.2],
+				[1.5,33.1],
+				[2.0,36.4],
+				[2.5,41.3],
+				[3.0,46.2],
+				[4.0,48.9],
+				[5.0,53.6],
+				[7.5,59.4],
+				[10.0,67.0],
+				[12.5,73.0]]
+
+var dataset50 = [[0,0],
+				[0.5,18.0],
+				[1.0,29.0],
+				[1.5,35.0],
+				[2.0,39.8],
+				[2.5,46.1],
+				[3.0,51.2],
+				[4.0,59.4],
+				[5.0,63.7],
+				[7.5,69.8],
+				[10.0,73.5],
+				[12.5,79.4]]
+
+var dataset60 = [[0,0],
+				[0.5,5.0],
+				[1.0,12.0],
+				[1.5,20.0],
+				[2.0,33.2],
+				[2.5,44.0],
+				[3.0,50.1],
+				[4.0,56.4],
+				[5.0,61.7],
+				[7.5,67.8],
+				[10.0,71.2],
+				[12.5,76.5]]
+
+var dataset70 = [[0,0],
+				[0.5,3.0],
+				[1.0,10.0],
+				[1.5,20.0],
+				[2.0,32.6],
+				[2.5,44],
+				[3.0,51.5],
+				[4.0,57.1],
+				[5.0,61.8],
+				[7.5,69],
+				[10.0,71.9],
+				[12.5,78.2]]
+
+
+
+
+
+
+
+var dataset11 = [[0,0,0,0],
+			[0.5,20,45.57,2.32],
+			[1.0,29.2,66.38,3.38],
+			[1.5,34.4,78.20,3.98],
+			[2.0,38.6,87.75,4.47],
+			[2.5,42.6,96.84,4.93],
+			[3.0,45.6,103.66,5.28],
+			[4.0,50.6,115.03,5.86],
+			[5.0,54.8,124.58,6.35],
+			[7.5,61.8,140.50,7.16],
+			[10.0,66,150.04,7.64],
+			[12.5,70.2,159.59,8.13]];
+
+var dataset21 = [[0,0,0,0],
+				[0.5,18,40.78,2.08],
+				[1.0,27.1,61.39,3.13],
+				[1.5,32.2,72.94,3.72],
+				[2.0,35.6,80.64,4.11],
+				[2.5,39.1,88.57,4.51],
+				[3.0,43,97.40,4.96],
+				[4.0,47.3,107.15,5.46],
+				[5.0,51.2,115.98,5.91],
+				[7.5,57.4,130.03,6.62],
+				[10.0,63,142.71,7.27],
+				[12.5,69,156.30,7.96]]
+
+var dataset31 = [[0,0,0,0],
+				[0.5,15,33.98,1.73],
+				[1.0,21,47.57,2.42],
+				[1.5,26.3,59.58,3.035],
+				[2.0,29.9,67.73,3.45],
+				[2.5,34.6,78.38,3.99],
+				[3.0,41,92.88,4.73],
+				[4.0,46.1,104.43,5.32],
+				[5.0,49.8,112.81,5.75],
+				[7.5,53.4,120.97,6.16],
+				[10.0,59.6,135.00,6.88],
+				[12.5,67,151.77,7.73]]
+
+var dataset41 =[[0,0,0,0],
+				[0.5,14,31.71,1.62],
+				[1.0,26.2,59.35,3.02],
+				[1.5,33.1,74.98,3.82],
+				[2.0,36.4,82.46,4.20],
+				[2.5,41.3,93.56,4.77],
+				[3.0,46.2,104.66,5.33],
+				[4.0,48.9,110.77,5.64],
+				[5.0,53.6,121.42,6.19],
+				[7.5,59.4,134.56,6.85],
+				[10.0,67,151.77,7.73],
+				[12.5,73,165.36,8.42]]
+
+var dataset51 = [[0,0,0,0],
+				[0.5,18,40.77,2.08],
+				[1.0,29,65.69,3.35],
+				[1.5,35,79.28,4.04],
+				[2.0,39.8,90.16,4.59],
+				[2.5,46.1,104.43,5.32],
+				[3.0,51.2,115.98,5.91],
+				[4.0,59.4,134.56,6.85],
+				[5.0,63.7,144.30,7.35],
+				[7.5,69.8,158.12,8.05],
+				[10,73.5,166.50,8.48],
+				[12.5,79.4,179.86,9.16]]
+
+var dataset61 = [[0,0,0,0],
+				[0.5,5,11.33,0.58],
+				[1,12,27.18,1.38],
+				[1.5,20,45.31,2.31],
+				[2.0,33.2,75.21,3.83],
+				[2.5,44,99.67,5.08],
+				[3.0,50.1,113.49,5.78],
+				[4.0,56.4,127.76,6.51],
+				[5.0,61.7,139.77,7.12],
+				[7.5,67.8,153.58,7.82],
+				[10.0,71.2,161.29,8.22],
+				[12.5,76.5,173.29,8.83]]
+
+var dataset71 = [[0,0,0,0],
+				[0.5,3,6.80,0.35],
+				[1.0,10,22.65,1.15],
+				[1.5,20,45.31,2.31],
+				[2.0,32.6,73.85,3.76],
+				[2.5,44,99.67,5.08],
+				[3.0,51.5,116.66,5.94],
+				[4.0,57.1,129.35,6.59],
+				[5.0,61.8,139.99,7.13],
+				[7.5,69,156.30,7.96],
+				[10.0,71.9,162.87,8.30],
+				[12.5,78.2,177.14,9.02]]
+
+
+
+
+
+
+if(p == 0){
+	dataset1 = dataset10.concat();
+	dataset2 = dataset11.concat();
+	soilType = "Sandy soil";
+
+}
+else if(p == 1){
+	dataset1 = dataset20.concat();
+	dataset2 = dataset21.concat();
+	soilType = "Fine grained soil";
+}
+
+else if(p == 2){
+	dataset1 = dataset30.concat();
+	dataset2 = dataset31.concat();
+	soilType = "Sandy soil";
+}
+
+else if(p == 3){
+	dataset1 = dataset40.concat();
+	dataset2 = dataset41.concat();
+	soilType = "Sandy soil";
+}
+else if(p == 4){
+	dataset1 = dataset50.concat();
+	dataset2 = dataset51.concat();
+	soilType = "Sandy soil";
+}
+else if(p == 5){
+	dataset1 = dataset60.concat();
+	dataset2 = dataset61.concat();
+	soilType = "Fine grained soil";
+}
+else if(p == 6){
+	dataset1 = dataset70.concat();
+	dataset2 = dataset71.concat();
+	soilType = "Fine grained soil";
+}
+
+
+
+
+
+
+
+
+function getLoc(event,ht){
+ alert(event.pageX);
+}
+
+</script>
+</head>
+
+<body style="margin:0; font-family:verdana;">
+<div id="simscreen">
+<div id="title"><h3>CALIFORNIA BEARING RATIO TEST ON SOIL</h3></div>
+
+<div class="simsubscreen" id="canvas0">
+<h4 class="incanvas">Objective:</h4>
+<p class="incanvas" style="font-size:14px;">To determine California Bearing Ratio value of soil by conducting load penetration test.</p><br/>
+<h4 class="incanvas">Apparatus used:</h4>
+<p class="incanvas" style="font-size:14px;">CBR Setup, CBR Mould, Filter Paper, Rammer, Plunger, Spacer Disc, Surcharge Weight, Slotted Weight.</p>
+	<img style="position:absolute; left:0px; top:160px;max-width:18%;width:100%;transform: rotateY(180deg)" src="images/man.png" />
+	<img style="position:absolute; left:250px; top:255px;" src="images/table.png" />
+	<img style="position:absolute; left:510px; top:100px;width:7%;cursor:pointer;" title="Compaction Rammer" src="images/bigPlunger.png" />
+	<img style="position:absolute; left:120px; top:124px;width:19%;cursor:pointer;" title="CBR Setup" src="images/setup1.png" />
+	<img style="position:absolute; left:310px; top:140px;width:18%;cursor:pointer" src="images/stand2.png" />
+	<img style="position:absolute; left:308px; top:190px;width:18%;cursor:pointer" title="CBR Mould on Detachable BasePlate" src="images/cylinder.png" />
+	<img style="position:absolute; left:285px; top:308px;width:18%;cursor:pointer" title="Detachable Collar" src="images/detachableCollar.png" />
+	<img style="position:absolute; left:580px; top:268px;width:14%;cursor:pointer" title="Filter Paper" src="images/paper.png" />
+	<img style="position:absolute; left:420px; top:318px;width:14%;cursor:pointer" title="Spacer Disc" src="images/spacerDisc.png" />
+	<img style="position:absolute; left:526px; top:318px;width:14%;cursor:pointer" title="Surcharge Weight" src="images/surchargeWeight.png" />
+	<img style="position:absolute; left:631px; top:318px;width:14%;cursor:pointer" title="Slotted Weight" src="images/halfWeight.png" />
+	<img style="position:absolute; left:460px; top:210px;width:5%;cursor:pointer" title="Plunger" src="images/plunger.png" />
+<br>&nbsp;<span class="tooltip" style="border-bottom:1px dotted ; color:red;text-align:justify">Description
+	<span class="tooltiptext">
+	<p><strong style="color:red;">California Bearing Ratio value</strong>: is the ratio of force per unit area required to penetrate a soil mass with standard circular piston at the rate of 1.25 mm/min to that required for the corresponding penetration of a standard material.</p>
+	</span>
+	</span>
+</div>
+
+<div class="simsubscreen" id="canvas1" style="visibility:hidden; ">
+	<strong class="incanvas">STEP</strong>
+	<span class="circlebg">&nbsp;1&nbsp;</span>
+	<p class="steptext">&nbsp;Take sample, sieve it in 20mm IS sieve using mechanical shaker and then add measured quantity of water to it.</p>
+	<p id="p1-0" style="position:absolute; left:50px; top:75px;font-size:14px;font-family:verdana"></p>
+	<img id="can1-11" style="position:absolute; left:400px; top:95px; visibility:hidden;" src="images/5.png" />
+	<img id="can1-11on" style="position:absolute; left:430.5px; top:355.25px; cursor:pointer; visibility:hidden;" src="images/s_on.png" />
+	<img id="can1-11onon" style="position:absolute; left:429px; top:355px; visibility:hidden;" src="images/onon.png" />
+	<img id="can1-10" style="position:absolute; left:9.75px; top:295px; visibility:hidden;cursor:pointer" src="images/ss.png" />
+	<img id="can1-12" style="position:absolute; left:250px; top:170px;cursor:pointer;visibility:hidden;" src="images/9.png" />
+	<img id="can1-11l" style="position:absolute; left:434px; top:140px;cursor:pointer;visibility:hidden;" src="images/6.png" />
+	<img id="can1-11r" style="position:absolute; left:545px; top:145px;cursor:pointer;visibility:hidden;" src="images/6.png" />
+	<img id="can1-8" style="position:absolute; left:25px; top:330px; visibility:hidden;" src="images/ca.png" />
+	<img id="can1-5" style="position:absolute; left:10px; top:345px; width:140px;" src="images/pan.png" />
+	<img id="can1-6" style="position:absolute; left:230px; top:345px; width:140px;cursor:pointer" src="images/2.36.png" />
+	<img id="can1-2" style="position:absolute; left:145px; top:220px;width:20%;visibility:hidden;cursor:pointer" src="images/plate2.png" />
+	<img id="can1-7" style="position:absolute; left:155px; top:220px;width:26%;visibility:hidden;" src="images/plateAgg.png" />
+	<img id="can1-9" style="position:absolute; left:200px; top:250px; visibility:hidden;cursor:pointer" src="images/cap.png" />
+	<span id="can1-17"></span>
+	<img id="can1-13" style="position:absolute; left:200px; top:280px;visibility:hidden" src="images/wm1.png" />
+	<img id="can1-14" style="position:absolute; left:260px; top:400px;cursor:pointer;visibility:hidden" src="images/on.png" />
+	<img id="can1-15" style="position:absolute; left:365px; top:400px;cursor:pointer;visibility:hidden" src="images/tare.png" /></div>
+	<img id="can1-16" style="position:absolute; left:274px; top:280px;cursor:pointer;visibility:hidden " src="images/plate.png" />
+	<img id="can1-16a" style="position:absolute; left:274px; top:400px;cursor:pointer;visibility:hidden " src="images/mudWater.png" />
+	<img id="can1-16b" style="position:absolute; left:274px; top:400px;cursor:pointer;visibility:hidden " src="images/plate3.png" />
+	<img id="can1-16c" style="position:absolute; left:274px; top:400px;cursor:pointer;visibility:hidden " src="images/plate4.png" />
+	<img id="can1-18" style="position:absolute; left:500px; top:240px;cursor:pointer;visibility:hidden " src="images/waterBeaker.png" />
+	<img id="can1-19" style="position:absolute; left:458px; top:312px;cursor:pointer;visibility:hidden " src="images/waterBeakerTilt.png" />
+	<img id="can1-20" style="position:absolute; left:430px; top:377px;cursor:pointer;visibility:hidden " src="images/flow.png" />
+	<img id="can1-21" style="position:absolute; left:150px; top:300px;cursor:pointer;visibility:hidden " src="images/trowel.png" />
+	<img id="can1-21a" style="position:absolute; left:270px; top:325px;cursor:pointer;visibility:hidden " src="images/trowel2.png" />
+	<p id="p1-1" style="position:absolute;left:250px;top:500px;font-family:verdana;font-size:14px;visibility:hidden">Volume of water taken (Total weight of soil(w) x 18%) = 900ml</p>
+</div>
+
+<div class="simsubscreen" id="canvas2" style="visibility:hidden;" >
+	<strong class="incanvas">STEP</strong>
+	<span class="circlebg">&nbsp;2&nbsp;</span>
+	<p class="steptext">&nbsp;Place the spacer disc over the base plate and coarse filter paper on it.</p>
+	<img id="can2-1" style="position:absolute; left:270px; top:250px;width:20%;cursor:pointer" src="images/stand2.png" />
+	<img id="can2-6" style="position:absolute; left:450px; top:380px;width:15%;cursor:pointer;" title="Spacer Disc" src="images/spacerDisc.png" />
+	<img id="can2-7" style="position:absolute; left:450px; top:375px;width:15%;visibility:hidden;cursor:pointer" title="Filter Paper" src="images/paper.png" />
+	<img id="can2-8" style="position:absolute; left:440px; top:310px;width:19.5%;visibility:hidden;cursor:pointer" title="Mould" src="images/cylinder.png" />
+	<img id="can2-2" style="position:absolute; left:272px; top:300px;width:2%;visibility:hidden;cursor:pointer" src="images/bolt.png" />
+	<img id="can2-3" style="position:absolute; left:400px; top:300px;width:2%;visibility:hidden;cursor:pointer" src="images/bolt.png" />
+</div>
+
+<div class="simsubscreen" id="canvas3" style="visibility:hidden;">
+<strong class="incanvas">STEP</strong>
+<span class="circlebg">&nbsp;3&nbsp;</span>
+<p class="steptext">&nbsp;Fill one fifth of the mould with the soil sample. Each layer is compacted by giving 56 evenly distributed blows using a hammer of weight 4.89kg.</p>
+	<img id="can3-15" style="position:absolute; left:280px; top:340px;cursor:pointer;visibility:hidden"src="images/layerMud.png" />
+	<img id="can3-15a" style="position:absolute; left:285px; width:16%;top:340px;cursor:pointer;visibility:hidden;"src="images/fixedMud.png" />
+	<img id="can3-17" style="position:absolute; left:228px; width:8%;top:200px;cursor:pointer;visibility:hidden"src="images/tamping_rod4.png" />
+	<img id="can3-12" style="position:absolute; left:456px; top:290px;cursor:pointer;visibility:hidden" src="images/compact.png" />
+	<img id="can3-12b" style="position:absolute; left:281px; top:200px;cursor:pointer;visibility:hidden" src="images/handCompact.png" />
+	<img id="can3-13" style="position:absolute; left:450px; top:280px;width:5%;cursor:pointer;visibility:hidden" src="images/downCompact.png" />
+	<img id="can3-1" style="position:absolute; left:270px; top:250px;width:20%;cursor:pointer" src="images/stand2.png" />
+	<img id="can3-6" style="position:absolute; left:288px; top:375px;width:15%;cursor:pointer;" title="Spacer Disc" src="images/spacerDisc.png" />
+	<img id="can3-7" style="position:absolute; left:288px; top:375px;width:15%;cursor:pointer" title="Filter Paper" src="images/paper.png" />
+	<img id="can3-8" style="position:absolute; left:270px; top:312px;width:19.5%;cursor:pointer" title="Mould" src="images/cylinder.png" />
+	<img id="can3-9" style="position:absolute; left:440px; top:375px;width:18.5%;visibility:hidden;cursor:pointer" title="Detachable Collar" src="images/detachableCollar.png" />
+	<img id="can3-14" style="position:absolute; left:310px; top:280px;width:2.7%;cursor:pointer;visibility:hidden" src="images/whitepaper.png" />
+	<img id="can3-2" style="position:absolute; left:272px; top:362px;width:2%;cursor:pointer" src="images/bolt.png" />
+	<img id="can3-3" style="position:absolute; left:400px; top:362px;width:2%;cursor:pointer" src="images/bolt.png" />
+	<img id="can3-4" style="position:absolute; left:272px; top:280px;width:2%;cursor:pointer;visibility:hidden" src="images/bolt.png" />
+	<img id="can3-5" style="position:absolute; left:400px; top:280px;width:2%;cursor:pointer;visibility:hidden" src="images/bolt.png" />
+	<img id="can3-10" style="position:absolute; left:0px; top:350px;cursor:pointer;" src="images/plate3.png" />
+	<img id="can3-11" style="position:absolute; left:0px; top:200px;cursor:pointer;" src="images/trowel.png" />
+	<img id="can3-16" style="position:absolute; left:260px; top:300px;width:30%;cursor:pointer;visibility:hidden" src="images/knife.png" />
+
+</div>
+
+<div id="canvas4" class="simsubscreen" style="visibility:hidden;">
+<strong class="incanvas">STEP</strong>
+<span class="circlebg">&nbsp;4&nbsp;</span>
+<p class="steptext">&nbsp;Remove base plate and invert the mould, then it is clamped to baseplate. Place the surcharge weight above the mould.</p>
+	<img id="can4-1" style="position:absolute; left:270px; top:250px;width:20%;cursor:pointer" src="images/stand2.png" />
+	<img id="can4-7" style="position:absolute; left:450px; top:380px;width:15%;cursor:pointer;visibility:hidden" title="Surcharge Weight" src="images/surchargeWeight.png" />
+	<img id="can4-4" style="position:absolute; left:288px; top:375px;width:15%;cursor:pointer;" title="Spacer Disc" src="images/spacerDisc.png" />
+	<img id="can4-5" style="position:absolute; left:288px; top:375px;width:15%;cursor:pointer" title="Filter Paper" src="images/mudPaper.png" />
+	<img id="can4-5a" style="position:absolute; left:120px; top:380px;width:15%;cursor:pointer;visibility:hidden" title="Filter Paper" src="images/paper.png" />
+	<img id="can4-6" style="position:absolute; left:270px; top:312px;width:19.5%;cursor:pointer" title="Mould" src="images/mudFilledCylinder.png" />
+	<img id="can4-6a" style="position:absolute; left:440px; top:310px;width:19.5%;cursor:pointer;visibility:hidden" title="Mould" src="images/tiltMould2.png" />
+	<img id="can4-2" style="position:absolute; left:272px; top:362px;width:2%;cursor:pointer" src="images/bolt.png" />
+	<img id="can4-3" style="position:absolute; left:400px; top:362px;width:2%;cursor:pointer" src="images/bolt.png" />
+</div>
+
+
+<div id="canvas5" class="simsubscreen"   style="visibility:hidden;" >
+<strong class="incanvas">STEP</strong>
+<span class="circlebg">&nbsp;5&nbsp;</span>
+<p class="steptext">&nbsp;Specimen is placed in position on the testing machine along with the half weight and plunger. Load at penetration of 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 7.5, 10.0 and 12.5mm are noted.</p>
+	<img id="can5-1" style="position:absolute; left:30px; top:50px;width:22%;cursor:pointer" src="images/setup2.png" />
+	<img id="can5-1a" style="position:absolute; left:95px; top:340px;cursor:pointer" src="images/rotate1.png" />
+	<img id="can5-1b" style="position:absolute; left:70px; top:360px;cursor:pointer" src="images/side1.png" />
+	<img id="can5-1c" style="position:absolute; left:59px; top:360px;cursor:pointer;visibility:hidden" src="images/side2.png" />
+	<img id="can5-2b" style="position:absolute; left:288px; top:75px;cursor:pointer" src="images/upperDial.PNG" />
+	<img id="can5-2" style="position:absolute; left:200px; top:100px;width:35%;cursor:pointer" src="images/1a.png" />
+	<img id="can5-2a" style="position:absolute; left:200px; top:75px;width:40%;cursor:pointer;" src="images/cover.png" />
+	<img id="can5-3" style="position:absolute; left:550px; top:300px;cursor:pointer" src="images/finalMould.png" />
+	<img id="can5-3a" style="position:absolute; left:95px; top:230px;width:8%;cursor:pointer;visibility:hidden" src="images/finalMould.png" />
+	<img id="can5-5" style="position:absolute; left:550px; top:300px;;width:15%;cursor:pointer;visibility:hidden" src="images/halfWeight.png" />
+	<img id="can5-5a" style="position:absolute; left:99px; top:250px;width:6.5%;cursor:pointer;visibility:hidden" src="images/halfWeight.png" />
+	<img id="can5-4" style="position:absolute; left:550px; top:300px;width:4.5%;cursor:pointer;visibility:hidden" src="images/plunger.png" />
+	<img id="can5-4a" style="position:absolute; left:335px; top:235px;width:4.5%;cursor:pointer;visibility:hidden" src="images/plunger2.png" />
+	<img id="can5-4b" style="position:absolute; left:116px; top:230px;width:2%;cursor:pointer;visibility:hidden" src="images/plunger2.png" />
+	<img id="can5-6" style="position:absolute; left:292px; top:205px;width:0.7%;cursor:pointer" src="images/dialNeedle1.png" />
+	<img id="can5-7" style="position:absolute; left:350px; top:160px;width:0.7%;cursor:pointer" src="images/dialNeedle1.png" />
+	<table id="result" border = "1px" style="position:absolute;left:500px;top:90px;max-width:150px;font-family:verdana;font-size:14px;text-align:center;visibility:hidden" >
+	<tr>
+	<td>Penetration (mm)</td>
+	<td>Proving ring reading </td>
+	</tr>
+	</table>
+</div>
+
+<div id="canvas6" class="simsubscreen" style="visibility:hidden;">
+<strong class="incanvas">STEP</strong>
+<span class="circlebg">&nbsp;6&nbsp;</span>
+<p class="steptext">&nbsp;Observation and Calculations.</p>
+<!-- <div id="mydiv" style="position:absolute;left:5px; top:30px;height: 500px;width:700px;"></div> -->
+<p class="paraStyle">Diameter of plunger = 50mm</p>
+<p class="paraStyle">Area of plunger = 19.63cm<sup>2</sup></p>
+<p class="paraStyle">Optimum moisture content = 15%</p>
+<!-- <p class="paraStyle" style="position:absolute;left:350px;top:30px;border-style:groove;border-width:medium">Load(kg) = <span class="frac"><sup>Proving Ring Reading * 5</sup><span>&frasl;</span><sub>225</sub></span></p> -->
+<p class="paraStyle" style="position:absolute;left:300px;top:15px;border-style:groove;border-width:medium">Load(kg) = <span class="frac"><sup><span class="frac"><sup>Proving Ring Reading * 5</sup><span>&frasl;</span><sub>225</sub></span>*1000</sup><span>&frasl;</span><sub>9.81</sub></span></p>
+<p class="paraStyle" style="position:absolute;left:350px;top:80px;border-style:groove">Axial Load(kg/cm<sup>2</sup>) = <span class="frac"><sup>Load(kg)</sup><span>&frasl;</span><sub>Area of plunger</sub></span></p>
+<p class="paraStyle" style="position:absolute;left:150px;top:125px;font-size:12px;color:red">**Enter key to be pressed to save values in table**</p>
+<div id="ss" style="position:relative;top:20px">
+<table id="calculation" border = "1px" style="font-family:verdana;font-size:14px;text-align:center;" >
+		<tr>
+			<td>Penetration (mm)</td>
+			<td>Proving ring reading </td>
+			<td>Load in (kg)</td>
+			<td>Axial load in (kg/cm<sup>2</sup>)</td>
+		</tr>
+	</table>
+	</div>
+	<!-- <p class="paraStyle" style="left:450px;visibility:hidden">California Baring Ratio CBR<sub>2.5</sub></p> -->
+
+</div>
+
+
+
+<div id="canvas7" class="simsubscreen" style="visibility:hidden;">
+<strong class="incanvas">STEP</strong>
+<span class="circlebg">&nbsp;7&nbsp;</span>
+<p class="steptext">&nbsp;Plot graph of Axial Load Vs Penetration.</p>
+<p id="g" style="position:absolute; left:250px; top:45px;cursor:pointer;border: 2px solid;padding: 5px;border-radius: 5px" onclick = "graph();">Axial Load v/s Penetration</p>
+<div id="chartContainer" style="height: 420px; width: 620px; margin-left:50px; margin-right:100px; margin-top:70px;border:2px solid;visibility:hidden"></div>
+</div>
+
+
+<div id="canvas8" class="simsubscreen" style="visibility:hidden;">
+<strong class="incanvas">STEP</strong>
+<span class="circlebg">&nbsp;8&nbsp;</span>
+<p class="steptext">&nbsp;Observation and Results.</p>
+	<p class="paraStyle" style="position:relative;left:15px">Unit standard load for 2.5mm = 70kg/m<sup>2</sup></p>
+	<p class="paraStyle" style="position:relative;left:15px">Unit standard load for 5mm = 105kg/m<sup>2</sup></p><br><br>
+	<p id="p25" class="paraStyle" style="position:relative;left:15px">California Bearing Ratio CBR<sub>2.5mm</sub> = <span class="frac"><sup>Load corresponding to 2.5mm penetration(P<sub>r</sub>)</sup><span>&frasl;</span><sub>Standard load corresponding to 2.5mm penetration (P<sub>s</sub>) </sub></span> * 100</p>
+	<p id="c25" class="paraStyle" style="position:relative;left:245px">=<span class="frac"><sup><input id="cbr25" type="text" class="inputStyle" autocomplete="off" style="text-align:center" oninput="checkInputValid(this)"></sup><span>&frasl;</span><sub>70</sub></span> * 100<span id="rightAns1">&nbsp;&nbsp;&nbsp;</span><input id="cb25" type="button" onclick="cbrCheck(this)" value="CHECK"></p>
+	<p id="p5"class="paraStyle" style="position:relative;left:15px;visibility:hidden">California Bearing Ratio CBR<sub>5mm</sub> = <span class="frac"><sup>Load corresponding to 5mm penetration(P<sub>r</sub>)</sup><span>&frasl;</span><sub>Standard load corresponding to 5mm penetration (P<sub>s</sub>) </sub></span> * 100</p>
+	<p id="c5" class="paraStyle" style="position:relative;left:235px;visibility:hidden">= <span class="frac"><sup><input id="cbr5" type="text" class="inputStyle" autocomplete="off" style="text-align:center" oninput="checkInputValid(this)"></sup><span>&frasl;</span><sub>105</sub></span> * 100<span id="rightAns2">&nbsp;&nbsp;&nbsp;</span><input id="cb5" type="button" onclick="cbrCheck(this)" value="CHECK"></p>
+	<span class="tableShow" style="position:absolute;left:15px;top:100px;color:red">Refer Graph
+		<span class="tableShowResult" style="border:2px solid black;">
+		<div id="cbcalculation" style="height: 400px; width: 550px; border:2px solid;"></div>
+		</span>
+	</span>
+	<p id="p8-0" style="position:absolute; left:15px; top:120px;font-size:14px;font-family:verdana"></p>
+	<span id="hintspan" class="tableShow" style="position:absolute;left:35px;top:320px;color:red;visibility:hidden">Need Hint&#63;
+		<span class="tableShowResult" style="border:1px solid black;position:absolute;left:-10px;top:20px;width:150px">
+		<table id="hint" style="color:black;border-collapse:collapse;padding:10px;" border = "1px solid">
+			<tr>
+				<th style="width:50%;padding:5px;">Soil Type</th>
+				<th style="width:50%;padding:5px;">CBR Range</th>
+			</tr>
+			<tr style="width:20%">
+				<td style="width:50%;padding:5px;">Sandy Soil</td>
+				<td style="width:50%;padding:5px;">5% - 40%</td>
+			</tr>
+			<tr style="width:20%">
+				<td style="width:50%;padding:5px;">Fine grained Soil</td>
+				<td style="width:50%;padding:5px;">5% - 15%</td>
+			</tr>
+		</table>
+		</span>
+	</span>
+	<h4 id="p8-1" class="glow" style="position:absolute; left:-450px; top:350px;font-family:verdana;visibility:hidden;">Since the soil is within the specified range it is suitable for pavement construction</h4>
+	</div>
+
+<!-- nextButton -->
+<div id="nav">
+<img id="nextButton" onclick="navNext()" src="images/Next.png" />
+</div>
+
+<span id="dialog-div" style="text-align:justify;padding: 2px;border-radius: 5px;">
+	 <p id="divp" style="font-family:verdana; font-size:14px;padding: 5px;">Both ends of the pipe must be trimmed to ensure parallel faces.</p>
+	 <input type="button" style="cursor:pointer;border-radius: 5px;margin: 0 auto; padding: 0;display: inline-block;text-align: center;" value="OK" onclick = "hideDialog();">
+</span>
+
+
+ <!-- This is the questions division -->
+<span id="question-div">
+	 <p id="divq" style="font-family:verdana; font-size:14px;">Both ends of the pipe must be trimmed to ensure parallel faces.</p>
+	 <!-- <input type="button" style="cursor:pointer" value="OK" onclick = "evaluateAnswer();"> -->
+	 <p id="ans"></p>
+</span>
+<!--Blinking Arrow	-->
+<img class ="" id="arrow1" style="visibility:hidden;" src="images/arrow1.png"/>
+<div id="copyright"> &copy; 2018 - <script>document.write(new Date().getFullYear())</script> SOLVE - The Virtual Lab @ NITK Surathkal, Department of Water Resources & Ocean Engineering</div>
+</div>
 </body>
 </html>
