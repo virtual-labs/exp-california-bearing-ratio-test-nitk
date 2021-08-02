@@ -15,7 +15,7 @@
 <p style="text-indent:50px; text-align:justify;">Generally, the CBR value at 2.5 mm will be greater that at 5 mm and in such a casethe former shall be taken as CBR for design purpose. If CBR for 5 mm exceeds that for 2.5 mm, the test should be repeated. The CBR can therefore be mathematically expressed as below:</p>
 
 <center>
-  <img src="images/cbr.png" height="253" width="400">
+  <img src="images/cbr.png" height="350" width="420">
 </center>
 
 <center>Schematic Diagram of CBR Experimental Setup </center><br>
