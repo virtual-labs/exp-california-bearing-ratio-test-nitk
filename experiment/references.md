@@ -32,3 +32,9 @@ Contributors:
 </ul></td>
 </tr>
 </table>
+
+### Lagu paTa:
+
+ #### Simulation Demo:
+ <li><a href="https://youtu.be/Bu-givCFNP0">https://youtu.be/Bu-givCFNP0</a></li>
+
