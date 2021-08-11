@@ -1,0 +1,50 @@
+[{
+		"question": "Load is applied on the sample by a standard plunger of diameter?",
+		"answers": {
+			"a": "30mm",
+			"b": "25mm",
+			"c": "75mm",
+			"d": "50mm"
+		},
+		"correctAnswer": "d"
+	},
+	{
+		"question": "CBR apparatus consists of a mould of __ diameter with a base plate and a collar",
+		"answers": {
+			"a": "125mm",
+			"b": "100mm",
+			"c": "130mm",
+			"d": "150mm"
+		},
+		"correctAnswer": "d"
+	},
+	{
+		"question": "In CBR test load is applied such that penetration rate is _ per minute",
+		"answers": {
+			"a": "1.00mm",
+			"b": "1.25mm",
+			"c": "5.00mm",
+			"d": "7.50mm"
+		},
+		"correctAnswer": "b"
+	},
+	{
+		"question": "CBR value",
+		"answers": {
+			"a": "Decreases as the penetration increases",
+			"b": "Increases as the penetration increases",
+			"c": "Increases as the penetration remains constant",
+			"d": "Decreases as the penetration remains constant"
+		},
+		"correctAnswer": "a"
+	},
+	{
+		"question": "In CBR test, CBR value is measured at",
+		"answers": {
+			"a": "2.5mm",
+			"b": "5mm",
+			"c": "Both 2.5mm and 5mm",
+			"d": "None of the above"
+		},
+		"correctAnswer": "c"
+	}]

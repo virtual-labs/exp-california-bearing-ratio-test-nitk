@@ -1,0 +1,50 @@
+[{
+    "question": "California Bearing Ratio (CBR) test is a penetration test meant for the evaluation of",
+    "answers": {
+      "a": "Base strength of roads and pavements",
+      "b": "Subgrade strength of roads and pavements",
+      "c": "Both A and B",
+      "d": "None of these"
+    },
+    "correctAnswer": "b"
+  },
+  {
+    "question": "Harder the surface",
+    "answers": {
+      "a": "Higher the CBR value",
+      "b": "Lower the CBR value",
+      "c": "CBR Value not effected",
+      "d": "No relation"
+    },
+    "correctAnswer": "a"
+  },
+  {
+    "question": "Results from CBR tests are used with the empirical curves to determine",
+    "answers": {
+      "a": "Thickness of pavement and its component layers",
+      "b": "Roughness of pavement and its component layers",
+      "c": "Durability of pavement and its component layers",
+      "d": "None of the above"
+    },
+    "correctAnswer": "a"
+  },
+  {
+    "question": "The CBR test can be conducted for",
+    "answers": {
+      "a": "Sub-grade soil",
+      "b": "Granular sub-base material",
+      "c": "Both A and B",
+      "d": "None of the above"
+    },
+    "correctAnswer": "c"
+  },
+  {
+    "question": "California Bearing Ratio (CBR) is a",
+    "answers": {
+      "a": "measure of soil strength",
+      "b": "method of soil identification",
+      "c": "measure to indicate the relative strengths of paving materials",
+      "d": "measure of shear strength under lateral confinement"
+    },
+    "correctAnswer": "a"
+	}]
